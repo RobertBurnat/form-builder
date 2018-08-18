@@ -19,7 +19,6 @@ class InputsList extends Component  {
             {value: 'Number', name: 'Number'},
             {value: 'Yes / No', name: 'Yes / No'}
         ],
-        subInput:[]
     };
     const input = [...this.state.input, normalInput];
     this.setState({input});
@@ -29,6 +28,11 @@ class InputsList extends Component  {
      this.setState({input: remainder});
 }
     render() {
+        const styles = {
+            height: '45px',
+            width: '150px',
+            marginTop: '25px'
+        }
         const test = this.state.input.map(cur => {
             return <Input
             key={uuid.v4()}
@@ -45,9 +49,9 @@ class InputsList extends Component  {
             />
         })
         return (
-            <div>
+            <div className="inputList">
                 {test}
-                <button data-type="input" onClick={this.addInput}>Add Input</button>
+                <button style={styles} onClick={this.addInput}>Add Input</button>
             </div>
         );
     }
