@@ -25,10 +25,9 @@ const newInput = {
     typeLabel: 'Type',
     conditionLabel: 'Condition',
     types: [
-        {value:'', name: ''},
-        {value: 'Text', name: 'Text'},
-        {value: 'Number', name: 'Number'},
-        {value: 'YesNo ', name: 'Yes / No'}
+      {value: 'Text', name: 'Text'},
+      {value: 'Number', name: 'Number'},
+      {value: 'Yes / No ', name: 'Yes / No'}
     ],
     isSubIn: false
   }
@@ -41,19 +40,18 @@ class InputsList extends Component  {
         typeLabel: 'Type',
         conditionLabel: 'Condition',
         types: [
-            {value:'', name: ''},
-            {value: 'Text', name: 'Text'},
-            {value: 'Number', name: 'Number'},
-            {value: 'Yes / No ', name: 'Yes / No'}
+          {value: 'Text', name: 'Text'},
+          {value: 'Number', name: 'Number'},
+          {value: 'Yes / No ', name: 'Yes / No'}
         ],
         conditions: [
-            { value : 'Equals', name: 'Equals'},
-            { value: 'Greater than', name: 'Greater than'},
-            { value: 'Less than', name: 'Less than'}
+          { value : 'Equals', name: 'Equals'},
+          { value: 'Greater than', name: 'Greater than'},
+          { value: 'Less than', name: 'Less than'}
         ],
         radio: [
-            { value: 'Yes', name: 'Yes'},
-            { value: 'No', name: 'No'}
+          { value: 'Yes', name: 'Yes'},
+          { value: 'No', name: 'No'}
         ],
         isSubIn: false
       }
@@ -61,7 +59,7 @@ class InputsList extends Component  {
 
     addInput = () => {
      const normalInput = {
-        ...this.state.input,
+        ...newInput,
         id: uuid.v4()
     };
     const input = [...this.state.input, normalInput];
@@ -90,9 +88,8 @@ class InputsList extends Component  {
      this.setState({input});
 }
     render() {
-        const test = this.state.input.map((cur, index) => {
-            return <Input
-            key={index}
+        const test = this.state.input.map(cur => {
+            return <Input 
             id={cur.id}
             questionLabel={cur.questionLabel}
             typeLabel={cur.typeLabel}
@@ -103,6 +100,7 @@ class InputsList extends Component  {
             addSub={this.addSubIn}
             remove={this.deleteInputHandler}
             isSubIn={cur.isSubIn}
+            changed={this.onChangedHandler}
             />
         })
         return (

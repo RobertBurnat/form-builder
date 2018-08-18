@@ -5,7 +5,7 @@ import './Input.css'
 
 class Input extends Component {
     state = {
-        type: ''
+        type: 'Number'
     }
 
     onChangeType = e => {
