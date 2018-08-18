@@ -41,7 +41,6 @@ class Input extends Component {
             ...this.state.type
         }
         this.setState({type: e.target.value})
-        console.log(e.target.value)
     }
 
     removeHandler = index => {
