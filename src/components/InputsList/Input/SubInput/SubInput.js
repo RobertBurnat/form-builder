@@ -1,6 +1,6 @@
 import React from 'react';
 
-const subInput = props => {
+const subInput = (props, remove) => {
     let typeInput = null;
 
     switch(props.typeInput) {
@@ -11,14 +11,16 @@ const subInput = props => {
             typeInput = <input type="number" />
             break;
         case ('Yes / No'):
-            typeInput = 
-            <select name="test">
+            typeInput = (
+                <div>
+            <select name="type">
                 {props.radio.map((currency, key) => {
                     return <option key={key} value={currency.value}>{currency.name}</option>
                 })}
             </select>
+            </div>)
             break;
-
+        default: typeInput = null;
     }
 
     return(
@@ -39,8 +41,8 @@ const subInput = props => {
                 })}
             </select></label>
             <div className="Buttons">
-                <button className="singleButton" onClick={props.addSub}>Add Sub-Input</button>
-                <button onClick={e => props.remove(props.id)}>Delete</button>
+                <button className="singleButton" onClick={props.addSubIn}>Add Sub-Input</button>
+                <button onClick={props.remove}>Delete</button>
             </div>
         </div>
     );

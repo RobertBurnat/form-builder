@@ -1,11 +1,39 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import SubInput from './SubInput/SubInput'
+import uuid from 'uuid'
 import './Input.css'
 
 class Input extends Component {
     state = {
-        type: 'Number'
+        subInput: [],
+        type: ''
+}
+    
+    addSubInput = () => {
+        const conditionInput = {
+            id: uuid.v4(),
+            questionLabel: 'Question',
+            typeLabel: 'Type',
+            conditionLabel: 'Condition',
+            types: [
+              {value: '', name: ''},
+              {value: 'Text', name: 'Text'},
+              {value: 'Number', name: 'Number'},
+              {value: 'YesNo ', name: 'YesNo'}
+            ],
+            conditions: [
+              { value : 'Equals', name: 'Equals'},
+              { value: 'Greater than', name: 'Greater than'},
+              { value: 'Less than', name: 'Less than'}
+            ],
+            radio: [
+              { value: 'Yes', name: 'Yes'},
+              { value: 'No', name: 'No'}
+            ],
+        };
+        const subInput = [...this.state.subInput, conditionInput];
+         this.setState({subInput});
     }
 
     onChangeType = e => {
@@ -13,50 +41,51 @@ class Input extends Component {
             ...this.state.type
         }
         this.setState({type: e.target.value})
+        console.log(e.target.value)
+    }
+
+    removeHandler = index => {
+        const subInput = [...this.state.subInput]
+        subInput.splice(index, 1);
+        this.setState({subInput: subInput});
     }
 
     render() {
-        let test = 
-        <Aux>
-        <div className="normInput">
-            <div className="contentInput">
-                <label className="question">{this.props.questionLabel}
-                <input type="text" className="test" onChange={this.props.changed} /></label>
-                <label>{this.props.typeLabel}
-                <select name="type" className="test" onChange={this.onChangeType}>
-                    {this.props.types.map((currency, key) => {
-                        return <option key={key} value={currency.value}>{currency.name}</option>
-                    })}
-                </select></label>
-                <div className="Buttons">
-                    <button className="singleButton" onClick={this.props.addSub}>Add Sub-Input</button>
-                    <button onClick={e => this.props.remove(this.props.id)}>Delete</button>
-                </div>
-            </div>
-        </div>
-        </Aux>
-        if(this.props.isSubIn) {
-            test = 
-             <Aux>
-            <SubInput
-                id={this.props.id}
-                isSubIn={this.isSubIn}
-                conditionLabel={this.props.conditionLabel}
-                conditions={this.props.conditions}
-                radio={this.props.radio} 
-                types={this.props.types}
-                questionLabel={this.props.questionLabel}
-                typeLabel={this.props.typeLabel}
-                remove={this.props.remove}
-                addSub={this.props.addSub}
+        const test = this.state.subInput.map((cur, index) =>{
+            return <SubInput
+                key={index}
+                id={cur.id}
+                questionLabel={cur.questionLabel}
+                typeLabel={cur.typeLabel}
+                conditionLabel={cur.conditionLabel}
+                types={cur.types}
+                conditions={cur.conditions}
+                radio={cur.radio}
                 typeInput={this.state.type}
-            />
-        </Aux>
-        }
+                addSubIn={this.addSubInput}
+                remove={this.removeHandler}
+                />
+        })
         return(
-            <div>
-                {test}
-            </div>
+            <Aux>
+                <div className="normInput">
+                    <div className="contentInput">
+                        <label className="question">{this.props.questionLabel}
+                        <input type="text" className="test" onChange={this.props.changed} /></label>
+                        <label>{this.props.typeLabel}
+                        <select name="type" className="test" onChange={this.onChangeType}>
+                            {this.props.types.map((currency, key) => {
+                            return <option key={key} value={currency.value}>{currency.name}</option>
+                        })}
+                        </select></label>
+                            <div className="Buttons">
+                                <button className="singleButton" onClick={this.addSubInput}>Add Sub-Input</button>
+                                <button onClick={e => this.props.remove(this.props.id)}>Delete</button>
+                            </div>
+                        </div>
+                    {test}
+                </div>
+            </Aux>
         )
     }
 }
