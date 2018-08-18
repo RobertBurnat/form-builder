@@ -71,20 +71,22 @@ class Input extends Component {
                 <div className="normInput">
                     <div className="contentInput">
                         <label className="question">{this.props.questionLabel}
-                        <input type="text" className="test" onChange={this.props.changed} /></label>
-                        <label>{this.props.typeLabel}
-                        <select name="type" className="test" onChange={this.onChangeType}>
+                        <input type="text" className="inputQuest" onChange={this.props.changed} /></label>
+                        <label className="type">{this.props.typeLabel}
+                        <select name="type" className="inputType" onChange={this.onChangeType}>
                             {this.props.types.map((currency, key) => {
                             return <option key={key} value={currency.value}>{currency.name}</option>
                         })}
                         </select></label>
                             <div className="Buttons">
-                                <button className="singleButton" onClick={this.addSubInput}>Add Sub-Input</button>
-                                <button onClick={e => this.props.remove(this.props.id)}>Delete</button>
+                                <button className="add" onClick={this.addSubInput}>Add Sub-Input</button>
+                                <button className="delete" onClick={e => this.props.remove(this.props.id)}>Delete</button>
                             </div>
                         </div>
-                    {test}
                 </div>
+                <Aux>
+                {test}
+                </Aux>
             </Aux>
         )
     }
