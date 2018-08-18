@@ -1,10 +1,9 @@
-/* .normInput {
-    width: 20%;
-    height: 30%;
+.normInput {
+    width: 400px;
     border: 1px solid #ccc;
-    margin-bottom: 50px;
+    flex-direction: column;
     display: flex;
-    justify-content: space-between;
+    margin-top: 50px;
     
 }
 .contentInput {
@@ -25,10 +24,22 @@ input, select {
     width: 50%;
 }
 label {
-    margin: 0 15px;
+    margin: 0 20px;
     justify-content: space-between;
-} */
-.normInput {
+}
+.inputSubinput {
+    width: 20%;
     border: 1px solid #ccc;
-    margin-bottom: 25px;
+    margin: 50px;
+}
+.question, type {
+    margin: 10px 0 10px 19px;
+}
+.inputQuest {
+    margin-left: 15px;
+    width: 69%;
+}
+.inputType {
+    margin-left: 43px;
+    width: 75%;
 }
