@@ -2,7 +2,7 @@ import React from 'react';
 import './SubInput.css';
 import Aux from '../../../../hoc/Auxiliary';
 
-const subInput = (props, remove) => {
+const subInput = ({props, remove, addSubInput}) => {
     let typeInput = null;
 
     switch(props.typeInput) {
@@ -45,8 +45,8 @@ const subInput = (props, remove) => {
                 })}
             </select></label>
             <div className="Buttons">
-                <button className="add" onClick={props.addSubInput}>Add Sub-Input</button>
-                <button className="delete" onClick={props.remove}>Delete</button>
+                <button className="add" onClick={addSubInput}>Add Sub-Input</button>
+                <button className="delete" onClick={() => remove(props.id)}>Delete</button>
             </div>
         </div>
     );
