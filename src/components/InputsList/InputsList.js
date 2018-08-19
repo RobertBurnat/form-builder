@@ -5,6 +5,7 @@ import uuid from 'uuid';
 
 class InputsList extends Component  {
     state = {
+        val: '',
         input: [],
 }
     addInput = () => {
@@ -19,10 +20,44 @@ class InputsList extends Component  {
             {value: 'Number', name: 'Number'},
             {value: 'Yes / No', name: 'Yes / No'}
         ],
+        subInput: []
     };
     const input = [...this.state.input, normalInput];
     this.setState({input});
 }
+
+addSubInput = inputId => {
+    const conditionInput = {
+        id: uuid.v4(),
+        questionLabel: 'Question',
+        typeLabel: 'Type',
+        conditionLabel: 'Condition',
+        types: [
+          {value: '', name: ''},
+          {value: 'Text', name: 'Text'},
+          {value: 'Number', name: 'Number'},
+          {value: 'YesNo ', name: 'YesNo'}
+        ],
+        conditions: [
+          { value : 'Equals', name: 'Equals'},
+          { value: 'Greater than', name: 'Greater than'},
+          { value: 'Less than', name: 'Less than'}
+        ],
+        radio: [
+          { value: 'Yes', name: 'Yes'},
+          { value: 'No', name: 'No'}
+        ],
+    };
+
+    const input = this.state.input.map(cur => {
+        if(cur.id === inputId) {
+            cur.subInput = [...cur.subInput, conditionInput];
+        }
+        return cur;
+    });
+    this.setState({ input })
+}
+
     deleteInputHandler = id => {
      const remainder = this.state.input.filter(cur => cur.id !== id);
      this.setState({input: remainder});
@@ -43,7 +78,8 @@ class InputsList extends Component  {
             conditions={cur.conditions}
             radio={cur.radio}
             types={cur.types}
-            addSub={this.addSubIn}
+            subInput={cur.subInput}
+            addSubInput={e => this.addSubInput(cur.id)}
             remove={this.deleteInputHandler}
             changed={this.onChangedHandler}
             />
