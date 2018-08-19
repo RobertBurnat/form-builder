@@ -2,18 +2,18 @@ import React from 'react';
 import './SubInput.css';
 import Aux from '../../../../hoc/Auxiliary';
 
-const subInput = ({props, remove, addSubInput}) => {
-    let typeInput = null;
+const subInput = ({props, remove, addSubInput, typeInput}) => {
+     let inputType = null;
 
-    switch(props.typeInput) {
+    switch(typeInput) {
         case ('Text'):
-            typeInput = <input type="text" className="inputSwitch" />
+        inputType = <input type="text" className="inputSwitch" />
             break;
         case ('Number'):
-            typeInput = <input type="number" className="inputSwitch" />
+        inputType = <input type="number" className="inputSwitch" />
             break;
         case ('Yes / No'):
-            typeInput = (
+            inputType = (
                 <Aux>
             <select name="type" className="inputSwitchY">
                 {props.radio.map((currency, key) => {
@@ -34,7 +34,7 @@ const subInput = ({props, remove, addSubInput}) => {
                     return <option key={key} value={currency.value}>{currency.name}</option>
             })}
             </select>
-                {typeInput}
+                {inputType}
             </div>
             <label className="question">{props.questionLabel}
             <input type="text" className="questionInput" /></label>
