@@ -17,18 +17,10 @@ class Input extends Component {
     render() {
         const test = this.props.subInput.map((cur, index) =>{
             return <SubInput
-                key={index}
-                id={cur.id}
-                questionLabel={cur.questionLabel}
-                typeLabel={cur.typeLabel}
-                conditionLabel={cur.conditionLabel}
-                types={cur.types}
-                conditions={cur.conditions}
-                radio={cur.radio}
-                typeInput={this.state.type}
-                addSubInput={this.props.addSubInput}
-                remove={this.removeHandler}
-                />
+            props={cur} 
+            key={index} 
+            remove={this.props.removeSub} 
+            addSubInput={this.props.addSubInput} />
         })
         return(
             <Aux>
