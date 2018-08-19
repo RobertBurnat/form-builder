@@ -28,7 +28,7 @@ const subInput = (props, remove) => {
     return(
         <div className="subContentInput">
             <div>
-            <label class="conditionLabel">{props.conditionLabel}</label>
+            <label className="conditionLabel">{props.conditionLabel}</label>
             <select name="type" className="select">
                 {props.conditions.map((currency, key) => {
                     return <option key={key} value={currency.value}>{currency.name}</option>
@@ -45,7 +45,7 @@ const subInput = (props, remove) => {
                 })}
             </select></label>
             <div className="Buttons">
-                <button className="add" onClick={props.addSubIn}>Add Sub-Input</button>
+                <button className="add" onClick={props.addSubInput}>Add Sub-Input</button>
                 <button className="delete" onClick={props.remove}>Delete</button>
             </div>
         </div>
