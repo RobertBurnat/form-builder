@@ -36,7 +36,7 @@ addSubInput = inputId => {
           {value: '', name: ''},
           {value: 'Text', name: 'Text'},
           {value: 'Number', name: 'Number'},
-          {value: 'YesNo ', name: 'YesNo'}
+          {value: 'Yes / No ', name: 'Yes / No'}
         ],
         conditions: [
           { value : 'Equals', name: 'Equals'},
