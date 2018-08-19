@@ -14,11 +14,6 @@ class Input extends Component {
         }
         this.setState({type: e.target.value})
     }
-    removeHandler = index => {
-        const subInput = [...this.state.subInput]
-        subInput.splice(index, 1);
-        this.setState({subInput: subInput});
-    }
     render() {
         const test = this.props.subInput.map((cur, index) =>{
             return <SubInput
