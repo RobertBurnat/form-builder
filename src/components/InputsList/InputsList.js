@@ -28,7 +28,7 @@ class InputsList extends Component  {
 
 addSubInput = inputId => {
     const conditionInput = {
-        id: uuid.v4(),
+        id: inputId,
         questionLabel: 'Question',
         typeLabel: 'Type',
         conditionLabel: 'Condition',
@@ -62,6 +62,17 @@ addSubInput = inputId => {
      const remainder = this.state.input.filter(cur => cur.id !== id);
      this.setState({input: remainder});
 }
+
+    removeSubHandler = id => {
+        const input = this.state.input.map(cur => {
+            if(cur.id === id) {
+                cur.subInput.splice(id, 1);
+            }
+            return cur;
+        });
+        this.setState({ input })
+        
+    }
     render() {
         const styles = {
             height: '45px',
@@ -81,6 +92,7 @@ addSubInput = inputId => {
             subInput={cur.subInput}
             addSubInput={e => this.addSubInput(cur.id)}
             remove={this.deleteInputHandler}
+            removeSub={this.removeSubHandler}
             changed={this.onChangedHandler}
             />
         })
