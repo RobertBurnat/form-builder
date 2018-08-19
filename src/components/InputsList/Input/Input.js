@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import SubInput from './SubInput/SubInput'
-import uuid from 'uuid'
 import './Input.css'
 
 class Input extends Component {
@@ -9,9 +8,6 @@ class Input extends Component {
         type: '',
 }
     onChangeType = e => {
-        const newState = {
-            ...this.state.type
-        }
         this.setState({type: e.target.value})
     }
     render() {
@@ -20,7 +16,8 @@ class Input extends Component {
             props={cur} 
             key={index} 
             remove={this.props.removeSub} 
-            addSubInput={this.props.addSubInput} />
+            addSubInput={this.props.addSubInput}
+            typeInput={this.state.type} />
         })
         return(
             <Aux>
@@ -41,7 +38,7 @@ class Input extends Component {
                         </div>
                 </div>
                 <Aux>
-                {test}
+                    {test}
                 </Aux>
             </Aux>
         )
