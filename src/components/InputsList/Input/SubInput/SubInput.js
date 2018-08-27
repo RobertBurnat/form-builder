@@ -1,6 +1,6 @@
 import React from 'react';
 import './SubInput.css';
-import Aux from '../../../../hoc/Auxiliary';
+import Aux from '../../../../hoc/Auixiliary/Auxiliary'
 
 const subInput = ({props, remove, addSubInput, typeInput}) => {
      let inputType = null;
