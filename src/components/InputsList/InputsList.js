@@ -2,67 +2,13 @@ import React, { Component } from 'react';
 import Input from './Input/Input';
 import './InputsList.css';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
 
 class InputsList extends Component  {
-    state = {
-        val: '',
-        input: [],
-}
-    addInput = () => {
-     const normalInput = {
-        id: uuid.v4(),
-        questionLabel: 'Question',
-        typeLabel: 'Type',
-        conditionLabel: 'Condition',
-        types: [
-            {value: '', name: ''},
-            {value: 'Text', name: 'Text'},
-            {value: 'Number', name: 'Number'},
-            {value: 'Yes / No', name: 'Yes / No'}
-        ],
-        subInput: []
-    };
-    const input = [...this.state.input, normalInput];
-    this.setState({input});
-}
-
-addSubInput = inputId => {
-    const conditionInput = {
-        id: inputId,
-        questionLabel: 'Question',
-        typeLabel: 'Type',
-        conditionLabel: 'Condition',
-        types: [
-          {value: '', name: ''},
-          {value: 'Text', name: 'Text'},
-          {value: 'Number', name: 'Number'},
-          {value: 'Yes / No ', name: 'Yes / No'}
-        ],
-        conditions: [
-          { value : 'Equals', name: 'Equals'},
-          { value: 'Greater than', name: 'Greater than'},
-          { value: 'Less than', name: 'Less than'}
-        ],
-        radio: [
-          { value: 'Yes', name: 'Yes'},
-          { value: 'No', name: 'No'}
-        ],
-    };
-
-    const input = this.state.input.map(cur => {
-        if(cur.id === inputId) {
-            cur.subInput = [...cur.subInput, conditionInput];
-        }
-        return cur;
-    });
-    this.setState({ input })
-}
-
-    deleteInputHandler = id => {
-     const remainder = this.state.input.filter(cur => cur.id !== id);
-     this.setState({input: remainder});
-}
-
+//     state = {
+//         val: '',
+//         input: [],
+// }
     removeSubHandler = id => {
         const input = this.state.input.map(cur => {
             if(cur.id === id) {
@@ -79,7 +25,7 @@ addSubInput = inputId => {
             width: '150px',
             marginTop: '25px'
         }
-        const test = this.state.input.map(cur => {
+        const test = this.props.input.map(cur => {
             return <Input
             key={uuid.v4()}
             id={cur.id}
@@ -90,8 +36,9 @@ addSubInput = inputId => {
             radio={cur.radio}
             types={cur.types}
             subInput={cur.subInput}
-            addSubInput={e => this.addSubInput(cur.id)}
-            remove={this.deleteInputHandler}
+            // addSubInput={e => this.addSubInput(cur.id)}
+            addSubInput={() => this.props.onAddSubInput(cur.id)}
+            remove={() => this.props.onDeleteInput(cur.id)}
             removeSub={this.removeSubHandler}
             changed={this.onChangedHandler}
             />
@@ -99,10 +46,24 @@ addSubInput = inputId => {
         return (
             <div className="inputList">
                 {test}
-                <button style={styles} onClick={this.addInput}>Add Input</button>
+                <button style={styles} onClick={this.props.onAddInput}>Add Input</button>
             </div>
         );
     }
 }
 
-export default InputsList;
+const mapStateToProps = state => {
+    return {
+        input: state.input,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddInput: () => dispatch({type: 'ADD_INPUT',}),
+        onAddSubInput: id => dispatch({type: 'ADD_SUBINPUT', id: id}),
+        onDeleteInput: id => dispatch({type: 'REMOVE_INPUT', id: id})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputsList);
