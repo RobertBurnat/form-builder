@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import Aux from '../../../hoc/Auixiliary/Auxiliary'
-import SubInput from './SubInput/SubInput'
-import './Input.css'
+import Aux from '../../../hoc/Auixiliary/Auxiliary';
+import SubInput from './SubInput/SubInput';
+import { connect } from 'react-redux';
+import './Input.css';
 
 class Input extends Component {
     state = {
-        type: '',
+        type: ''
 }
     onChangeType = e => {
         this.setState({type: e.target.value})
     }
     render() {
-        const test = this.props.subInput.map((cur, index) =>{
+        const text = this.props.input.map(t => {
+            if(t.id === this.props.id) {
+                return t.text
+            }
+        });
+
+        const subInput = this.props.subInput.map((cur, index) =>{
             return <SubInput
             props={cur} 
             key={index} 
@@ -24,7 +31,11 @@ class Input extends Component {
                 <div className="normInput">
                     <div className="contentInput">
                         <label className="question">{this.props.questionLabel}
-                        <input type="text" className="inputQuest"/></label>
+                        <input 
+                        type="text" 
+                        className="inputQuest" 
+                        onChange={(event) => this.props.onAddText(event.target.value, this.props.id)} 
+                        value={text.join("")}/></label>
                         <label className="type">{this.props.typeLabel}
                         <select name="type" className="inputType" onChange={this.onChangeType}>
                             {this.props.types.map((currency, key) => {
@@ -38,12 +49,24 @@ class Input extends Component {
                         </div>
                 </div>
                 <Aux>
-                    {test}
+                    {subInput}
                 </Aux>
             </Aux>
         )
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        input: state.input,
+    }
+}
 
-export default Input;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddText: (text, id) => dispatch({type: 'ADD_TEXT', text: text, id: id})
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
