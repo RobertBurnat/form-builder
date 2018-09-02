@@ -5,10 +5,9 @@ import uuid from 'uuid';
 import { connect } from 'react-redux';
 
 class InputsList extends Component  {
-//     state = {
-//         val: '',
-//         input: [],
-// }
+    state = {
+        val: '',
+}
     removeSubHandler = id => {
         const input = this.state.input.map(cur => {
             if(cur.id === id) {
@@ -25,7 +24,7 @@ class InputsList extends Component  {
             width: '150px',
             marginTop: '25px'
         }
-        const test = this.props.input.map(cur => {
+        const input = this.props.input.map(cur => {
             return <Input
             key={uuid.v4()}
             id={cur.id}
@@ -40,12 +39,11 @@ class InputsList extends Component  {
             addSubInput={() => this.props.onAddSubInput(cur.id)}
             remove={() => this.props.onDeleteInput(cur.id)}
             removeSub={this.removeSubHandler}
-            changed={this.onChangedHandler}
             />
         })
         return (
             <div className="inputList">
-                {test}
+                {input}
                 <button style={styles} onClick={this.props.onAddInput}>Add Input</button>
             </div>
         );
@@ -60,7 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddInput: () => dispatch({type: 'ADD_INPUT',}),
+        onAddInput: () => dispatch({type: 'ADD_INPUT'}),
         onAddSubInput: id => dispatch({type: 'ADD_SUBINPUT', id: id}),
         onDeleteInput: id => dispatch({type: 'REMOVE_INPUT', id: id})
     }
