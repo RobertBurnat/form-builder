@@ -2,7 +2,7 @@ import * as actionTypes from '../actions';
 import uuid from 'uuid';
 
 const initialState = {
-    input: [],
+    input: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +10,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_INPUT:
             const normalInput = {
                 id: uuid.v4(),
+                text: '',
                 questionLabel: 'Question',
                 typeLabel: 'Type',
                 conditionLabel: 'Condition',
@@ -64,6 +65,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 input: input
+            }
+        case actionTypes.ADD_TEXT:
+            const addText = [...state.input];
+            addText.map(t => {
+                if(t.id === action.id) {
+                    t.text = action.text
+                }
+                return t;
+            });
+            return {
+                ...state,
+                input: addText
             }
 
     }
